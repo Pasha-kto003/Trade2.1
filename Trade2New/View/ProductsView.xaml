@@ -1,0 +1,81 @@
+﻿<Window x:Class="Trade2New.View.ProductsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Trade2New.View"
+        mc:Ignorable="d"
+        Title="ProductsView" Height="450" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical">
+                <Label Content="Поиск" HorizontalAlignment="Center" Height="30" Width="200" HorizontalContentAlignment="Center"/>
+                <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Width="200" Height="30"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Column="1">
+                <Label Content="Тип поиска" HorizontalAlignment="Center" Height="30" Width="200" HorizontalContentAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding SearchType}" SelectedItem="{Binding SelectedSearchType}" Width="200" Height="30"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Column="2">
+                <Label Content="Фильтрация" HorizontalAlignment="Center" Height="30" Width="200" HorizontalContentAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding FilterType}" SelectedItem="{Binding SelectedFilterType}" Width="200" Height="30"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="{Binding UserRole}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="30" Foreground="Black"/>
+            </StackPanel>
+        </Grid>
+        <ListBox ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.Column="1">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{Binding ProductName}"/>
+                                <Label Content="{Binding ProductDescription}"/>
+                                <Label Content="{Binding Manufacturer.Title}"/>
+                                <Label Content="{Binding ProductCost}"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="2">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{Binding ProductQuantityInStock}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Изменить продукт" Command="{Binding EditProduct}"/>
+                    <MenuItem Header="Удалить продукт"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Content="{Binding SearchCountRows}" Grid.Column="0"/>
+            <Button Grid.Column="1" Width="200" Height="30" Click="Button_Click" Content="Вернуться назад"/>
+            <Button Grid.Column="2" Command="{Binding AddProduct}" Content="Добавить продукт" Width="200" Height="30"/>
+        </Grid>
+    </Grid>
+</Window>
