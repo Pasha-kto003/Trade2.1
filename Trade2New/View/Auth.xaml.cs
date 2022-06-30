@@ -117,7 +117,7 @@ namespace Trade2New.View
 
         public string CaptchaValue { get; set; }
 
-        public event System.EventHandler CaptchaRefreshed;
+        public event EventHandler CaptchaRefreshed;
 
         private void CreateCaptcha()
         {
@@ -129,11 +129,11 @@ namespace Trade2New.View
             string[] ar = allowchar.Split(a);
             string pwd = string.Empty;
             string temp = string.Empty;
-            System.Random r = new System.Random();
+            Random r = new Random();
 
             for (int i = 0; i < 6; i++)
             {
-                temp = ar[(r.Next(0, ar.Length))];
+                temp = ar[r.Next(0, ar.Length)];
 
                 pwd += temp;
             }
@@ -142,7 +142,7 @@ namespace Trade2New.View
 
             CaptchaValue = CaptchaText.Text;
 
-            CaptchaRefreshed?.Invoke(this, System.EventArgs.Empty);
+            CaptchaRefreshed?.Invoke(this, EventArgs.Empty);
         }
 
         //private void Button_Click_1(object sender, RoutedEventArgs e)
